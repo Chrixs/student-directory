@@ -1,16 +1,24 @@
 def input_students
   puts "Please enter the names of the students"
-  puts "Then add age, height and country of birth:"
+  puts "Then add cohort, age, height and country of birth:"
   students = []
   name = gets.chomp
+  cohort = gets.chomp
+  if cohort.empty?
+    cohort = "November"
+  end
   age = gets.chomp
   height = gets.chomp
   country = gets.chomp
   while !name.empty? do
-    students << {name: name, cohort: :november, age: age, height: height, country: country}
+    students << {name: name, cohort: cohort, age: age, height: height, country: country}
     puts "Now we have #{students.count} students"
     name = gets.chomp
     if !name.empty?
+      cohort = gets.chomp
+      if cohort.empty?
+        cohort = "November"
+      end
       age = gets.chomp
       height = gets.chomp
       country = gets.chomp
@@ -24,7 +32,29 @@ def print_header
   puts "-------------".center(80)
 end
 
+def cohort_print(students)
+  cohorts = []
+  puts "Which cohort would you like to view?".center(80)
+  students.each do |student|
+    cohorts << student[:cohort]
+  end
+  puts cohorts.uniq
+  cohort = gets.chomp
+  puts "These are the students in the #{cohort} cohort:".center(80)
+  students.each do |student|
+    if student[:cohort] == cohort
+      puts "#{student[:name]}".center(80)
+    end
+  end
+end
+
 def print(students)
+  students.each do |student|
+    puts "#{student[:name]} (#{student[:cohort]} cohort)".center(80)
+  end
+end
+
+def print_specific(students)
   students.each.with_index(1) do |student, index|
     if student[:name].length < 12 && student[:name][0] == "C"
       puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)".center(80)
@@ -38,5 +68,5 @@ end
 
 students = input_students
 print_header
-print(students)
+cohort_print(students)
 print_footer(students)
