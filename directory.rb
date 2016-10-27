@@ -2,7 +2,7 @@ def input_students
   puts "Please enter the names of the students"
   puts "Then add cohort, age, height and country of birth:"
   students = []
-  name = gets.chomp
+  name = gets.chop
   cohort = gets.chomp
   if cohort.empty?
     cohort = "November"
@@ -13,7 +13,7 @@ def input_students
   while !name.empty? do
     students << {name: name, cohort: cohort, age: age, height: height, country: country}
     puts "Now we have #{students.count} students"
-    name = gets.chomp
+    name = gets.chop
     if !name.empty?
       cohort = gets.chomp
       if cohort.empty?
@@ -63,10 +63,14 @@ def print_specific(students)
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students".center(82)
+  if names.count > 1
+    puts "Overall, we have #{names.count} great students".center(82)
+  else
+    puts "Overall, we have one great student".center(82)
+  end
 end
 
 students = input_students
 print_header
-cohort_print(students)
+print(students)
 print_footer(students)
