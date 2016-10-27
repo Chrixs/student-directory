@@ -20,20 +20,20 @@ def input_students
 end
 
 def print_header
-  puts "The Students of Villains Academy"
-  puts "-------------"
+  puts "The Students of Villains Academy".center(80)
+  puts "-------------".center(80)
 end
 
 def print(students)
   students.each.with_index(1) do |student, index|
     if student[:name].length < 12 && student[:name][0] == "C"
-      puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)"
+      puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)".center(80)
     end
   end
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+  puts "Overall, we have #{names.count} great students".center(82)
 end
 
 students = input_students
