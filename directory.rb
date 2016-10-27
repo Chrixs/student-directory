@@ -1,12 +1,20 @@
 def input_students
   puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
+  puts "Then add age, height and country of birth:"
   students = []
   name = gets.chomp
+  age = gets.chomp
+  height = gets.chomp
+  country = gets.chomp
   while !name.empty? do
-    students << {name: name, cohort: :november}
+    students << {name: name, cohort: :november, age: age, height: height, country: country}
     puts "Now we have #{students.count} students"
     name = gets.chomp
+    if !name.empty?
+      age = gets.chomp
+      height = gets.chomp
+      country = gets.chomp
+    end
   end
   students
 end
