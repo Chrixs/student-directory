@@ -63,14 +63,19 @@ end
 def process(selection)
   case selection
     when "1"
+      puts "\nOpening student input\n "
       input_students
     when "2"
+      puts "\nShowing students\n "
       show_students
     when "3"
+      puts "\nSaving current list of students to students.csv\n "
       save_students
     when "4"
+      puts "\nLoading students from students.csv\n "
       load_students
     when "9"
+      puts "\nExiting program...\n "
       exit
     else
       puts "\nI don't know what you mean, try again\n "
