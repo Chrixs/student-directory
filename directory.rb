@@ -3,20 +3,20 @@
 def input_students
   puts "Please enter the names of the students"
   puts "Then add cohort, age, height and country of birth:"
-  name = $stdin.gets.chomp
-  while !name.empty? do
-    cohort = $stdin.gets.chomp
-    if cohort.empty?
-      cohort = "November"
+  @name = $stdin.gets.chomp
+  while !@name.empty? do
+    @cohort = $stdin.gets.chomp
+    if @cohort.empty?
+      @cohort = "November"
     end
     push_to_students
     puts "Now we have #{@students.count} students"
-    name = $stdin.gets.chomp
+    @name = $stdin.gets.chomp
   end
 end
 
 def push_to_students
-  @students << {name: name, cohort: cohort.to_sym}
+  @students << {name: @name, cohort: @cohort.to_sym}
 end
 
 def print_header
@@ -86,7 +86,7 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
+    @name, @cohort = line.chomp.split(',')
     push_to_students
   end
   file.close
@@ -98,6 +98,9 @@ def try_load_students
   if File.exists?(filename)
     load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
+  elsif filename.empty?
+    puts "No filename given, loading default students file."
+    load_students
   else
     puts "Sorry, #{filename} doesn't exist."
     exit
