@@ -49,8 +49,8 @@ end
 def print_menu
   puts "\t1. Input the students"
   puts "\t2. Show the students"
-  puts "\t3. Save the list to students.csv"
-  puts "\t4. Load the list from students.csv"
+  puts "\t3. Save to a file"
+  puts "\t4. Load from a file"
   puts "\t9. Exit"
 end
 
@@ -69,11 +69,13 @@ def process(selection)
       puts "\nShowing students\n "
       show_students
     when "3"
-      puts "\nSaving current list of students to students.csv\n "
+      puts "\nInitiating save function\n "
       save_students
     when "4"
-      puts "\nLoading students from students.csv\n "
-      load_students
+      puts "\nInitiating load function"
+      puts "What file would you like to load?"
+      filename = $stdin.gets.chomp
+      load_students(filename)
     when "9"
       puts "\nExiting program...\n "
       exit
@@ -83,7 +85,9 @@ def process(selection)
 end
 
 def save_students
-  file = File.open("students.csv", "w")
+  puts "What file would you like to save as?"
+  save_file = $stdin.gets.chomp
+  file = File.open(save_file, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
