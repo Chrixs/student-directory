@@ -1,16 +1,20 @@
 @students = []
 
 def input_students
-  puts "Please enter the names of the students"
-  puts "Then add cohort, age, height and country of birth:"
+  puts "\nPlease enter the names of the students"
+  puts "Then add cohort\n "
   @name = $stdin.gets.chomp
+  input_loop
+end
+
+def input_loop
   while !@name.empty? do
     @cohort = $stdin.gets.chomp
     if @cohort.empty?
       @cohort = "November"
     end
     push_to_students
-    puts "Now we have #{@students.count} students"
+    puts "\nNow we have #{@students.count} students\n "
     @name = $stdin.gets.chomp
   end
 end
@@ -43,11 +47,11 @@ def print_footer
 end
 
 def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
-  puts "9. Exit"
+  puts "\t1. Input the students"
+  puts "\t2. Show the students"
+  puts "\t3. Save the list to students.csv"
+  puts "\t4. Load the list from students.csv"
+  puts "\t9. Exit"
 end
 
 def show_students
@@ -69,7 +73,7 @@ def process(selection)
     when "9"
       exit
     else
-      puts "I don't know what you mean, try again"
+      puts "\nI don't know what you mean, try again\n "
   end
 end
 
@@ -95,13 +99,13 @@ end
 def try_load_students
   filename = ARGV.first
   if filename.nil?
-    puts "No filename given, loading default students file."
+    puts "\nNo filename given, loading default students file.\n "
     load_students
   elsif File.exists?(filename)
     load_students(filename)
-     puts "Loaded #{@students.count} from #{filename}"
+     puts "\nLoaded #{@students.count} from #{filename}\n "
   else
-    puts "Sorry, #{filename} doesn't exist."
+    puts "\nSorry, #{filename} doesn't exist.\n "
     exit
   end
 end
