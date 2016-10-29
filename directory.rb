@@ -3,15 +3,15 @@
 def input_students
   puts "Please enter the names of the students"
   puts "Then add cohort, age, height and country of birth:"
-  name = gets.chomp
+  name = $stdin.gets.chomp
   while !name.empty? do
-    cohort = gets.chomp
+    cohort = $stdin.gets.chomp
     if cohort.empty?
       cohort = "November"
     end
     @students << {name: name, cohort: cohort}
     puts "Now we have #{@students.count} students"
-    name = gets.chomp
+    name = $stdin.gets.chomp
   end
 end
 
@@ -79,20 +79,33 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
+    name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
 
-def interactive_menu
-  loop do
-    print_menu
-    process(gets.chomp)
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+     puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
   end
 end
 
+def interactive_menu
+  loop do
+    print_menu
+    process($stdin.gets.chomp)
+  end
+end
+
+try_load_students
 interactive_menu
