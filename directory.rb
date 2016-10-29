@@ -9,10 +9,14 @@ def input_students
     if cohort.empty?
       cohort = "November"
     end
-    @students << {name: name, cohort: cohort}
+    push_to_students
     puts "Now we have #{@students.count} students"
     name = $stdin.gets.chomp
   end
+end
+
+def push_to_students
+  @students << {name: name, cohort: cohort.to_sym}
 end
 
 def print_header
@@ -83,7 +87,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    push_to_students
   end
   file.close
 end
