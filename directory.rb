@@ -3,18 +3,15 @@
 def input_students
   puts "Please enter the names of the students"
   puts "Then add cohort, age, height and country of birth:"
-  name = gets.chop
+  name = gets.chomp
   while !name.empty? do
     cohort = gets.chomp
     if cohort.empty?
       cohort = "November"
     end
-    age = gets.chomp
-    height = gets.chomp
-    country = gets.chomp
-    @students << {name: name, cohort: cohort, age: age, height: height, country: country}
+    @students << {name: name, cohort: cohort}
     puts "Now we have #{@students.count} students"
-    name = gets.chop
+    name = gets.chomp
   end
 end
 
@@ -23,34 +20,10 @@ def print_header
   puts "-------------".center(80)
 end
 
-def cohort_print
-  cohorts = []
-  puts "Which cohort would you like to view?".center(80)
-  @students.each do |student|
-    cohorts << student[:cohort]
-  end
-  puts cohorts.uniq
-  cohort = gets.chomp
-  puts "These are the students in the #{cohort} cohort:".center(80)
-  @students.each do |student|
-    if student[:cohort] == cohort
-      puts "#{student[:name]}".center(80)
-    end
-  end
-end
-
 def print_students_list
   if !@students.empty?
     @students.each do |student|
       puts "#{student[:name]} (#{student[:cohort]} cohort)".center(80)
-    end
-  end
-end
-
-def print_specific
-  @students.each.with_index(1) do |student, index|
-    if student[:name].length < 12 && student[:name][0] == "C"
-      puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)".center(80)
     end
   end
 end
